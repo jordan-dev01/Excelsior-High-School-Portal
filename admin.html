@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- Student 3: Administrative Interface Developer
+     Name: Yashen Barracks | ID#: 2304973 | Lab Thursday @ 6-9PM -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Student Registry</title>
+  <link rel="stylesheet" href="style.css"> <!-- Student 1's shared CSS -->
+</head>
+<body>
+  <header>
+    <h1>Student Registry</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Add / Update Student</h2>
+      <form id="studentForm">
+        <label for="id">Student ID</label>
+        <input type="text" id="id" placeholder="5 digits">
+
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName">
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName">
+
+        <label for="email">Email</label>
+        <input type="text" id="email">
+
+        <label for="gradeLevel">Grade Level</label>
+        <select id="gradeLevel">
+          <option value="">-- Select --</option>
+          <option>Grade 7</option>
+          <option>Grade 8</option>
+          <option>Grade 9</option>
+          <option>Grade 10</option>
+          <option>Grade 11</option>
+        </select>
+
+        <label for="semester">Active Semester</label>
+        <select id="semester">
+          <option value="">-- Select --</option>
+          <option>Semester 1</option>
+          <option>Semester 2</option>
+        </select>
+
+        <button type="submit" id="saveBtn">Add Student</button>
+        <button type="button" id="cancelBtn" hidden>Cancel</button>
+      </form>
+      <p id="message"></p>
+    </section>
+
+    <section>
+      <h2>Registered Students</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Email</th>
+            <th>Grade</th><th>Semester</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="studentTable"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
