@@ -9,25 +9,118 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us</title>
-    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+    <title>About Us — Excelsior High School</title>
+    <link rel="stylesheet" href="Stylesheet.css" />
+    <script src="storage.js" defer></script>
   </head>
-    <body>
-    <header>
-      <img src="../images/ExcelsiorHighSchool_Kingston_Logo.png" alt="Excelsior Logo" class="logo" />
-      <h1>About Us</h1>
+  <body>
+    <header class="site-header">
+      <img
+        src="images/Excelsior Logo.png"
+        alt="Excelsior High School Logo"
+        class="logo"
+      />
+      <div class="brand">
+        <h1>Excelsior High School</h1>
+        <p>Age Animo — "Do It With Thy Might"</p>
+      </div>
       <nav class="navbar">
         <ul>
-          <li><a href="ExcelsiorHighSchool_Kingston_Home.html">Home</a></li>
-          <li><a href="ExcelsiorHighSchool_Kingston_About.html">About Us</a></li>
-          <li><a href="ExcelsiorHighSchool_Kingston_Contact.html">Our Team</a></li>
-          <li><a href="ExcelsiorHighSchool_Kingston_Login.html">Login</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="login.html">Login</a></li>
         </ul>
       </nav>
     </header>
-    <main style="padding: 20px;">
-      <h2>Our Mission</h2>
-      <p>Excelsior High School is dedicated to providing a world-class education.</p>
+
+    <main>
+      <section>
+        <h2>Our History</h2>
+        <p>
+          Excelsior High School was founded in 1931 in Kingston, Jamaica, by Mr.
+          Aston E. Tomlinson. From its earliest days, the school has carried the
+          motto <em>"Age Animo — Do It With Thy Might"</em> as a call to
+          excellence, discipline, and service.
+        </p>
+        <p>
+          Over nine decades, Excelsior has grown from a small secondary
+          institution into one of Jamaica's most respected high schools,
+          consistently producing leaders in business, academia, sports, and
+          public service.
+        </p>
+      </section>
+
+      <section>
+        <h2>Landmark Accomplishments</h2>
+        <ul class="achievement-list">
+          <li>
+            Multiple Jamaica Independent Schools Association (JISA) sports
+            championships.
+          </li>
+          <li>Consistent top-tier passes in CSEC and CAPE examinations.</li>
+          <li>
+            National awardees in the Jamaica Cultural Development Commission
+            (JCDC) arts competitions.
+          </li>
+          <li>
+            Alumni serving at the highest levels of government, medicine, and
+            industry.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Teacher Directory</h2>
+        <p>Our faculty members and the subjects they lead:</p>
+        <table class="directory-table">
+          <thead>
+            <tr>
+              <th>Teacher</th>
+              <th>Staff ID</th>
+              <th>Assigned Subjects</th>
+            </tr>
+          </thead>
+          <tbody id="teacherDirectory"></tbody>
+        </table>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <p>
+        Excelsior High School — 137 Mountain View Avenue, Kingston 3, Jamaica
+      </p>
+      <p>Tel: (876) 928-1111 &nbsp;|&nbsp; Email: info@excelsiorhigh.edu.jm</p>
+      <p>&copy; 2026 Excelsior High School. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Pull teachers from the seeded users list, filter to role='teacher'
+      const directory = document.getElementById('teacherDirectory');
+      const teachers = getData('users').filter(function (u) {
+        return u.role === 'teacher';
+      });
+
+      if (teachers.length === 0) {
+        directory.innerHTML =
+          '<tr><td colspan="3">Directory unavailable.</td></tr>';
+      } else {
+        teachers.forEach(function (t) {
+          const row = document.createElement('tr');
+          const subjects = (t.subjects || []).join(', ') || '—';
+          row.innerHTML =
+            '<td>' +
+            t.name +
+            '</td>' +
+            '<td>' +
+            t.ID +
+            '</td>' +
+            '<td>' +
+            subjects +
+            '</td>';
+          directory.appendChild(row);
+        });
+      }
+    </script>
   </body>
 </html>
