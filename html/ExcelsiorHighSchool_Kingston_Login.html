@@ -10,15 +10,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
-    <link rel="stylesheet" href="Stylesheet.css" />
-    <script src="storage.js"></script>
+    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
   </head>
   <body>
     <img
-      src="images/Excelsior Logo.png"
+      src="../images/ExcelsiorHighSchool_Kingston_Logo.png"
       alt="Excelsior High School Logo"
       class="logo"
     />
+    <p><a href="ExcelsiorHighSchool_Kingston_Home.html">&larr; Back to Home</a></p>
     <form id="loginForm" class="Login">
       <label for="usernameInput">Username:</label>
       <input
@@ -40,40 +41,7 @@
 
       <p id="loginError" style="color: red; display: none"></p>
     </form>
-    <script>
-      seedDatabase();
-
-      document
-        .getElementById('loginForm')
-        .addEventListener('submit', function (event) {
-          event.preventDefault();
-
-          const username = document
-            .getElementById('usernameInput')
-            .value.trim();
-          const password = document.getElementById('passwordInput').value;
-
-          const result = login(username, password);
-
-          if (!result.success) {
-            document.getElementById('loginError').textContent = result.message;
-            document.getElementById('loginError').style.display = 'block';
-            return;
-          }
-
-          if (result.user.role === 'admin') {
-            window.location.href = 'admin.html';
-          } else if (result.user.role === 'teacher') {
-            window.location.href = 'teacher-panel.html';
-          } else if (result.user.role === 'student') {
-            window.location.href = 'student-panel.html';
-          } else {
-            document.getElementById('loginError').textContent =
-              'No page has been set up for this role yet.';
-            document.getElementById('loginError').style.display = 'block';
-          }
-        });
-    </script>
+    <script src="../js/ExcelsiorHighSchool_Kingston_Auth.js"></script>
   </body>
 </html>
 

@@ -6,9 +6,9 @@
 */
 
 // read everything from localStorage (read-only, so nothing can get changed up here)
-const students = JSON.parse(localStorage.getItem("students")) || [];
-const ledger = JSON.parse(localStorage.getItem("ledger")) || [];
-const grades = JSON.parse(localStorage.getItem("grades")) || []; // [{id, subject, score}]
+const students = getData("students");
+const ledger = getData("ledger");
+const grades = getData("grades"); // [{id, subject, score}]
 
 const select = document.getElementById("studentSelect");
 const profileTable = document.getElementById("profileTable");
@@ -57,7 +57,17 @@ addRow(financeTable, ["Status", status], true);
 
 select.innerHTML = '<option value="">Select student</option>';
 students.forEach(s => {
-  select.innerHTML += `<option value="${s.id}">${s.id} - ${s.firstName} ${s.lastName}</option>`;
+  const opt = document.createElement("option");
+  opt.value = s.id;
+  opt.textContent = s.id + " - " + s.firstName + " " + s.lastName;
+  select.appendChild(opt);
 });
+
+// teachers only see their own links (Registry and Ledger are admin-only pages)
+const viewer = getCurrentUser();
+if (viewer && viewer.role === "teacher") {
+  document.querySelectorAll(".admin-only").forEach(li => { li.hidden = true; });
+  document.querySelectorAll(".teacher-only").forEach(li => { li.hidden = false; });
+}
 select.addEventListener("change", showStudent);
 document.getElementById("printBtn").addEventListener("click", () => window.print());

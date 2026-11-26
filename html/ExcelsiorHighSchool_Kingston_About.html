@@ -10,13 +10,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us — Excelsior High School</title>
-    <link rel="stylesheet" href="Stylesheet.css" />
-    <script src="storage.js" defer></script>
+    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
   </head>
   <body>
     <header class="site-header">
       <img
-        src="images/Excelsior Logo.png"
+        src="../images/ExcelsiorHighSchool_Kingston_Logo.png"
         alt="Excelsior High School Logo"
         class="logo"
       />
@@ -26,10 +26,10 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_Home.html">Home</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_About.html">About Us</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_Contact.html">Contact Us</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_Login.html">Login</a></li>
         </ul>
       </nav>
     </header>
@@ -108,16 +108,11 @@
         teachers.forEach(function (t) {
           const row = document.createElement('tr');
           const subjects = (t.subjects || []).join(', ') || '—';
-          row.innerHTML =
-            '<td>' +
-            t.name +
-            '</td>' +
-            '<td>' +
-            t.ID +
-            '</td>' +
-            '<td>' +
-            subjects +
-            '</td>';
+          [t.name, t.ID, subjects].forEach(function (text) {
+            const td = document.createElement('td');
+            td.textContent = text;
+            row.appendChild(td);
+          });
           directory.appendChild(row);
         });
       }

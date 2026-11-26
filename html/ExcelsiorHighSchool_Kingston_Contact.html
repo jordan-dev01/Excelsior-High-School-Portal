@@ -10,13 +10,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us — Excelsior High School</title>
-    <link rel="stylesheet" href="Stylesheet.css" />
-    <script src="storage.js" defer></script>
+    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
   </head>
   <body>
     <header class="site-header">
       <img
-        src="images/Excelsior Logo.png"
+        src="../images/ExcelsiorHighSchool_Kingston_Logo.png"
         alt="Excelsior High School Logo"
         class="logo"
       />
@@ -26,10 +26,10 @@
       </div>
       <nav class="navbar">
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="login.html">Login</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_Home.html">Home</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_About.html">About Us</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_Contact.html">Contact Us</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_Login.html">Login</a></li>
         </ul>
       </nav>
     </header>
@@ -45,7 +45,7 @@
             name="fullName"
             placeholder="Jane Doe"
             required
-            pattern="[A-Za-z\s.'-]{2,50}"
+            pattern="[A-Za-z\s.'\-]{2,50}"
             title="Letters, spaces, apostrophes and hyphens only (2–50 characters)"
           />
 
@@ -115,7 +115,7 @@
 
     <script>
       const contactForm = document.getElementById('contactForm');
-      const status = document.getElementById('contactStatus');
+      const statusMsg = document.getElementById('contactStatus');
 
       contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -138,8 +138,8 @@
         });
         saveData('messages', messages);
 
-        status.textContent = 'Thank you! Your message has been received.';
-        status.style.color = '#facc15';
+        statusMsg.textContent = 'Thank you! Your message has been received.';
+        statusMsg.style.color = '#facc15';
         contactForm.reset();
       });
     </script>

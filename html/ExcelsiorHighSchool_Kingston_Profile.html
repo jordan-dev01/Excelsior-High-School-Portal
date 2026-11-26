@@ -16,9 +16,9 @@
     main { padding: 1rem; }
     .controls { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1rem; }
     select, button { padding: 0.4rem; font-family: inherit; }
-    button { background: var(--accent-color); border: none; cursor: pointer; }
+    button { background: var(--secondary-color); border: none; cursor: pointer; }
     table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
-    th, td { border: 1px solid var(--accent-color); padding: 0.4rem; }
+    th, td { border: 1px solid var(--secondary-color); padding: 0.4rem; }
     @media print {
       .controls, nav { display: none; }
       body { background: #fff; color: #000; }
@@ -30,17 +30,17 @@
 <body>
   <script>
     // Admins and teachers may view this page
-    const me = JSON.parse(localStorage.getItem('currentUser'));
-    if (!me) { alert('Access Denied. Please log in first.'); window.location.href = 'ExcelsiorHighSchool_Kingston_Login.html'; }
+    requireRole(['admin', 'teacher']);
   </script>
   <header>
     <h1>Excelsior High School</h1>
     <h2>Student Profile Report</h2>
-    <nav class="navbar"><ul>
-      <li><a href="ExcelsiorHighSchool_Kingston_Admin.html">Student Registry</a></li>
-      <li><a href="ExcelsiorHighSchool_Kingston_Ledger.html">Financial Ledger</a></li>
+    <nav class="navbar"><ul id="profileNav">
+      <li class="admin-only"><a href="ExcelsiorHighSchool_Kingston_Admin.html">Student Registry</a></li>
+      <li class="admin-only"><a href="ExcelsiorHighSchool_Kingston_Ledger.html">Financial Ledger</a></li>
+      <li class="teacher-only" hidden><a href="ExcelsiorHighSchool_Kingston_TeacherPanel.html">Teacher Panel</a></li>
       <li><a href="ExcelsiorHighSchool_Kingston_Profile.html">Printable Profile</a></li>
-      <li><a href="#" onclick="logout()">Logout</a></li>
+      <li><a href="#" onclick="logout(); return false;">Logout</a></li>
     </ul></nav>
   </header>
   <main>

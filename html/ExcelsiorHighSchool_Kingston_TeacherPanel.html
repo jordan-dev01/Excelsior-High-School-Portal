@@ -10,8 +10,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Teacher Panel — Excelsior High School</title>
-    <link rel="stylesheet" href="Stylesheet.css" />
-    <script src="storage.js" defer></script>
+    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
   </head>
   <body>
     <script>
@@ -20,15 +20,39 @@
 
     <header class="site-header">
       <img
-        src="images/Excelsior Logo.png"
+        src="../images/ExcelsiorHighSchool_Kingston_Logo.png"
         alt="Excelsior High School Logo"
         class="logo"
       />
       <h1>Teacher Panel</h1>
-      <button id="logoutBtn" class="login_button">Logout</button>
+      <nav class="navbar">
+        <ul>
+          <li><a href="ExcelsiorHighSchool_Kingston_TeacherPanel.html">Teacher Panel</a></li>
+          <li><a href="ExcelsiorHighSchool_Kingston_Profile.html">Printable Profile</a></li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main>
+      <section>
+        <h2>Student List</h2>
+        <table class="directory-table">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Grade</th>
+              <th>Semester</th>
+            </tr>
+          </thead>
+          <tbody id="teacherStudentTable"></tbody>
+        </table>
+        <button id="generateXmlBtn" type="button" class="login_button">Generate XML</button>
+        <pre id="xmlOutput" style="display: none; text-align: left; overflow-x: auto"></pre>
+      </section>
+
       <section>
         <h2>Curriculum Filter</h2>
         <label for="subjectSelect">Select a Subject</label>
@@ -63,17 +87,6 @@
       </section>
     </main>
 
-    <script>
-      document.getElementById('logoutBtn').addEventListener('click', logout);
-
-      // Populate subject dropdown from storage
-      const subjectSelect = document.getElementById('subjectSelect');
-      getData('subjects').forEach(function (s) {
-        const opt = document.createElement('option');
-        opt.value = s.code || s.name;
-        opt.textContent = s.name;
-        subjectSelect.appendChild(opt);
-      });
-    </script>
+    <script src="../js/ExcelsiorHighSchool_Kingston_Teacher.js"></script>
   </body>
 </html>

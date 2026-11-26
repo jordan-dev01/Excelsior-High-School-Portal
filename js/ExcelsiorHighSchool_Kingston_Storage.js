@@ -1,53 +1,95 @@
-/* Group Members:
-   Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
-   Yashen Barracks | 2304973 | Lab Thursday 6-8PM
-   Jordan Zhang | 2510220 | Lab Thursday 6-8PM
-   Joel Nicholson | 2405543 | Lab Thursday 6-8PM
-*/
+// Shared storage + authentication helpers (loaded by every page that needs data or a login check).
+// Only function declarations live here so page scripts can use their own const names freely.
 
-// 1. This creates the default Admin and Teacher accounts so we can actually log in.
-function seedDatabase() {
-  const users = localStorage.getItem('users');
-  
-  // If the browser hasn't saved any users yet, we make these two accounts.
-  if (!users) {
-    const defaultUsers = [
-      { username: 'admin', password: 'admin123', role: 'admin' },
-      { username: 'teacher', password: 'teacher123', role: 'teacher' }
-    ];
-    localStorage.setItem('users', JSON.stringify(defaultUsers));
+const LOGIN_PAGE = 'ExcelsiorHighSchool_Kingston_Login.html';
+const SEED_VERSION = '2';
+
+// Read an array/object from localStorage (returns [] if missing or corrupted).
+function getData(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    return value === null || value === undefined ? [] : value;
+  } catch (err) {
+    return [];
   }
 }
 
-// 2. This checks if the user typed the right username and password.
+// Save any value to localStorage under the given key.
+function saveData(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+// 1. Creates the default Admin / Teacher accounts and the subject list.
+function seedDatabase() {
+  if (localStorage.getItem('seedVersion') === SEED_VERSION) return;
+
+  saveData('users', [
+    { username: 'admin', password: 'admin123', role: 'admin', name: 'School Administrator', ID: 'A001' },
+    {
+      username: 'teacher',
+      password: 'teacher123',
+      role: 'teacher',
+      name: 'Demo Teacher',
+      ID: 'T001',
+      subjects: ['Mathematics', 'English Language', 'Information Technology', 'Integrated Science']
+    }
+  ]);
+
+  saveData('subjects', [
+    { code: 'MATH', name: 'Mathematics' },
+    { code: 'ENG', name: 'English Language' },
+    { code: 'IT', name: 'Information Technology' },
+    { code: 'SCI', name: 'Integrated Science' },
+    { code: 'SOC', name: 'Social Studies' }
+  ]);
+
+  localStorage.setItem('seedVersion', SEED_VERSION);
+}
+
+// 2. Checks the username/password and remembers who logged in.
 function login(username, password) {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  
-  // Look through the saved users to find a match.
-  const user = users.find(u => u.username === username && u.password === password);
-  
-  if (user) {
-    // Remember who just logged in so the next page knows who they are.
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    return { success: true, user: user };
-  } else {
+  const users = getData('users');
+  const user = users.find(function (u) {
+    return u.username === username && u.password === password;
+  });
+
+  if (!user) {
     return { success: false, message: 'Invalid username or password.' };
   }
+
+  // Never keep the password in the "current user" record.
+  const safeUser = Object.assign({}, user);
+  delete safeUser.password;
+  saveData('currentUser', safeUser);
+  return { success: true, user: safeUser };
 }
 
-// 3. This stops people from just typing the page link to sneak into the Admin or Teacher pages.
-function requireRole(role) {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  
-  // If they aren't logged in, or they have the wrong role, kick them back to the login page.
-  if (!currentUser || currentUser.role !== role) {
-    alert('Access Denied. Please log in first.');
-    window.location.href = 'ExcelsiorHighSchool_Kingston_Login.html';
+// Returns the logged-in user, or null.
+function getCurrentUser() {
+  const user = getData('currentUser');
+  return user && user.role ? user : null;
+}
+
+// 3. Blocks pages for anyone who is not logged in with an allowed role.
+//    Accepts one role ('admin') or a list (['admin', 'teacher']).
+function requireRole(roles) {
+  const allowed = Array.isArray(roles) ? roles : [roles];
+  const user = getCurrentUser();
+
+  if (!user || allowed.indexOf(user.role) === -1) {
+    // Hide the page immediately so nothing private flashes before the redirect.
+    document.documentElement.style.display = 'none';
+    window.location.replace(LOGIN_PAGE);
+    return false;
   }
+  return true;
 }
 
-// 4. This logs the user out and sends them back to the login page.
+// 4. Logs the user out and sends them back to the login page.
 function logout() {
   localStorage.removeItem('currentUser');
-  window.location.href = 'ExcelsiorHighSchool_Kingston_Login.html';
+  window.location.href = LOGIN_PAGE;
 }
+
+// Make sure the default data exists no matter which page is opened first.
+seedDatabase();

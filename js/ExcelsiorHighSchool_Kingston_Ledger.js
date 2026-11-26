@@ -6,8 +6,8 @@
 */
 
 // students come from the admin page and then ledger records are saved separately
-const students = JSON.parse(localStorage.getItem("students")) || [];
-let ledger = JSON.parse(localStorage.getItem("ledger")) || []; // {id, tuition, paid, payments:[{amount, date}]}
+const students = getData("students");
+let ledger = getData("ledger"); // {id, tuition, paid, payments:[{amount, date}]}
 ledger.forEach(r => { if (!r.payments) r.payments = []; });
 
 let selectedId = ""; // student whose payment history is shown
@@ -30,18 +30,23 @@ function getStatus(r) {
   return "Outstanding";
 }
 
-function saveData() {
-  localStorage.setItem("ledger", JSON.stringify(ledger));
+function saveLedger() {
+  saveData("ledger", ledger);
 }
 
 // fill the student dropdown and semester filter
 function loadOptions() {
   select.innerHTML = '<option value="">Select student</option>';
   students.forEach(s => {
-    select.innerHTML += `<option value="${s.id}">${s.id} - ${s.firstName} ${s.lastName}</option>`;
+    const opt = document.createElement("option");
+    opt.value = s.id;
+    opt.textContent = s.id + " - " + s.firstName + " " + s.lastName;
+    select.appendChild(opt);
   });
   [...new Set(students.map(s => s.semester))].forEach(sem => {
-    semesterFilter.innerHTML += `<option>${sem}</option>`;
+    const opt = document.createElement("option");
+    opt.textContent = sem;
+    semesterFilter.appendChild(opt);
   });
 }
 
@@ -126,25 +131,28 @@ form.addEventListener("submit", function (e) {
   if (!id) { message.textContent = "Select a student."; return; }
 
   let record = ledger.find(x => x.id === id);
-  if (!record) {
-    record = { id: id, tuition: 0, paid: 0, payments: [] };
-    ledger.push(record);
-  }
-  if (tuition > 0) {
-    if (tuition < record.paid) { message.textContent = "Tuition cannot be less than the amount already paid."; return; }
-    record.tuition = tuition;
-  }
-  if (record.tuition <= 0) { message.textContent = "Enter the tuition first."; return; }
-  if (payment > record.tuition - record.paid) {
+  const isNew = !record;
+  const current = record || { id: id, tuition: 0, paid: 0, payments: [] };
+
+  // work out the new numbers first, only change the real record if everything is valid
+  const newTuition = tuition > 0 ? tuition : current.tuition;
+  if (tuition > 0 && tuition < current.paid) { message.textContent = "Tuition cannot be less than the amount already paid."; return; }
+  if (newTuition <= 0) { message.textContent = "Enter the tuition first."; return; }
+  if (payment < 0 || tuition < 0) { message.textContent = "Amounts cannot be negative."; return; }
+  if (payment > newTuition - current.paid) {
     message.textContent = "Payment is more than the balance.";
     return;
   }
+  if (tuition <= 0 && payment <= 0) { message.textContent = "Enter a tuition amount or a payment."; return; }
+
+  if (isNew) { record = current; ledger.push(record); }
+  record.tuition = newTuition;
   if (payment > 0) {
     record.paid += payment;
     record.payments.push({ amount: payment, date: new Date().toLocaleDateString() });
   }
 
-  saveData();
+  saveLedger();
   message.textContent = "Saved.";
   form.reset();
   selectedId = id;
@@ -168,7 +176,7 @@ historyTable.addEventListener("click", function (e) {
   const r = ledger.find(x => x.id === selectedId);
   r.paid -= r.payments[index].amount;
   r.payments.splice(index, 1);
-  saveData();
+  saveLedger();
   flashId = selectedId;
   renderAll();
   setTimeout(() => { flashId = ""; }, 1500);

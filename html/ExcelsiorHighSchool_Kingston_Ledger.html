@@ -16,12 +16,12 @@
     main { padding: 1rem; }
     form, .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1rem; }
     input, select, button { padding: 0.4rem; font-family: inherit; }
-    button { background: var(--accent-color); border: none; cursor: pointer; }
+    button { background: var(--secondary-color); border: none; cursor: pointer; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid var(--accent-color); padding: 0.4rem; }
+    th, td { border: 1px solid var(--secondary-color); padding: 0.4rem; }
     #ledgerTable tr { cursor: pointer; }
     .flash { animation: flash 1.5s; }
-    @keyframes flash { from { background: var(--accent-color); color: #000; } to { background: transparent; } }
+    @keyframes flash { from { background: var(--secondary-color); color: #000; } to { background: transparent; } }
     .Paid { color: #4ade80; }
     .Pending { color: #facc15; }
     .Outstanding { color: #f87171; }
@@ -40,8 +40,8 @@
     <nav class="navbar"><ul>
       <li><a href="ExcelsiorHighSchool_Kingston_Admin.html">Student Registry</a></li>
       <li><a href="ExcelsiorHighSchool_Kingston_Ledger.html">Financial Ledger</a></li>
-        <li><a href="ExcelsiorHighSchool_Kingston_Profile.html">Printable Profile</a></li>
-      <li><a href="#" onclick="logout()">Logout</a></li>
+      <li><a href="ExcelsiorHighSchool_Kingston_Profile.html">Printable Profile</a></li>
+      <li><a href="#" onclick="logout(); return false;">Logout</a></li>
     </ul></nav>
   </header>
   <main>

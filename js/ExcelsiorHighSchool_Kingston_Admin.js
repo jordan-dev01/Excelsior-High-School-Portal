@@ -6,7 +6,7 @@
 */
 
 const KEY = 'students'; // shared localStorage key
-let students = JSON.parse(localStorage.getItem(KEY)) || [];
+let students = getData(KEY);
 let editingId = null; // null = add mode
 
 const form = document.getElementById('studentForm');
@@ -17,7 +17,7 @@ const cancelBtn = document.getElementById('cancelBtn');
 
 // Persist the array to localStorage
 function saveStudents() {
-  localStorage.setItem(KEY, JSON.stringify(students));
+  saveData(KEY, students);
 }
 
 // Validation guards: returns an error string, or "" if valid
@@ -33,7 +33,9 @@ function validate(s) {
 
   // Duplicate check (ignore the record being edited)
   const duplicate = students.some(
-    (x) => (x.id === s.id || x.email === s.email) && x.id !== editingId
+    (x) =>
+      (x.id === s.id || x.email.toLowerCase() === s.email.toLowerCase()) &&
+      x.id !== editingId
   );
   if (duplicate) return 'Student ID or email already exists.';
   return '';
@@ -115,6 +117,10 @@ table.addEventListener('click', function (e) {
     if (confirm('Delete this student?')) {
       students = students.filter((x) => x.id !== id);
       saveStudents();
+      // Remove this student's ledger record and grades too, so nothing is left orphaned
+      saveData('ledger', getData('ledger').filter((x) => x.id !== id));
+      saveData('grades', getData('grades').filter((x) => x.id !== id));
+      if (editingId === id) resetForm();
       renderTable();
       message.textContent = 'Student deleted.';
     }
