@@ -9,25 +9,139 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact</title>
-    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+    <title>Contact Us — Excelsior High School</title>
+    <link rel="stylesheet" href="Stylesheet.css" />
+    <script src="storage.js" defer></script>
   </head>
-    <body>
-    <header>
-      <img src="../images/ExcelsiorHighSchool_Kingston_Logo.png" alt="Excelsior Logo" class="logo" />
-      <h1>Our Team</h1>
+  <body>
+    <header class="site-header">
+      <img
+        src="images/Excelsior Logo.png"
+        alt="Excelsior High School Logo"
+        class="logo"
+      />
+      <div class="brand">
+        <h1>Excelsior High School</h1>
+        <p>Age Animo — "Do It With Thy Might"</p>
+      </div>
       <nav class="navbar">
         <ul>
-          <li><a href="ExcelsiorHighSchool_Kingston_Home.html">Home</a></li>
-          <li><a href="ExcelsiorHighSchool_Kingston_About.html">About Us</a></li>
-          <li><a href="ExcelsiorHighSchool_Kingston_Contact.html">Our Team</a></li>
-          <li><a href="ExcelsiorHighSchool_Kingston_Login.html">Login</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="login.html">Login</a></li>
         </ul>
       </nav>
     </header>
-    <main style="padding: 20px;">
-      <h2>The Developers</h2>
-      <p>Built by Khaleed, Yashen, Jordan, and Joel.</p>
+
+    <main>
+      <section>
+        <h2>Send Us a Message</h2>
+        <form id="contactForm" class="contact-form" novalidate>
+          <label for="fullName">Full Name</label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Jane Doe"
+            required
+            pattern="[A-Za-z\s.'-]{2,50}"
+            title="Letters, spaces, apostrophes and hyphens only (2–50 characters)"
+          />
+
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+            title="Please enter a valid email address"
+          />
+
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="876-555-1234"
+            required
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            title="Format: 876-555-1234"
+          />
+
+          <label for="topic">Topic</label>
+          <select id="topic" name="topic" required>
+            <option value="">-- Select a topic --</option>
+            <option>Admissions Enquiry</option>
+            <option>Academic Records</option>
+            <option>Financial Office</option>
+            <option>General Enquiry</option>
+          </select>
+
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            minlength="10"
+            maxlength="500"
+            placeholder="How can we help? (10–500 characters)"
+          ></textarea>
+
+          <button type="submit" class="login_button">Send Message</button>
+          <p id="contactStatus" class="form-status"></p>
+        </form>
+      </section>
+
+      <section>
+        <h2>Visit or Call Us</h2>
+        <address>
+          137 Mountain View Avenue<br />
+          Kingston 3, Jamaica<br />
+          Tel: (876) 928-1111<br />
+          Email: info@excelsiorhigh.edu.jm
+        </address>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <p>
+        Excelsior High School — 137 Mountain View Avenue, Kingston 3, Jamaica
+      </p>
+      <p>&copy; 2026 Excelsior High School. All rights reserved.</p>
+    </footer>
+
+    <script>
+      const contactForm = document.getElementById('contactForm');
+      const status = document.getElementById('contactStatus');
+
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // HTML5 validity check (novalidate means we trigger it manually)
+        if (!contactForm.checkValidity()) {
+          contactForm.reportValidity();
+          return;
+        }
+
+        // Store the message (mock "dispatch" — no backend)
+        const messages = getData('messages');
+        messages.push({
+          name: document.getElementById('fullName').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          topic: document.getElementById('topic').value,
+          body: document.getElementById('message').value.trim(),
+          submittedAt: new Date().toISOString(),
+        });
+        saveData('messages', messages);
+
+        status.textContent = 'Thank you! Your message has been received.';
+        status.style.color = '#facc15';
+        contactForm.reset();
+      });
+    </script>
   </body>
 </html>
