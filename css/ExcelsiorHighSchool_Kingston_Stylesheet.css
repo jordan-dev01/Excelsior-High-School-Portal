@@ -1,0 +1,106 @@
+/* Group Members:
+   Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+   Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+   Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+   Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+*/
+
+:root {
+  --background-color: #34495e; 
+  --nav-color: #2c3e50;
+  --accent-color: #f1c40f; 
+  --text-color: #ecf0f1; 
+  --font-display: 'Palatino Linotype', serif;
+  --font-size: 1rem;
+}
+
+h1, h2 {
+  text-align: center;
+  color: var(--accent-color);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-display);
+  font-size: var(--font-size);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  list-style-type: none;
+  padding: 15px;
+  margin: 0;
+  background-color: var(--nav-color);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+ul li a {
+  text-decoration: none;
+  color: var(--nav-color);
+  background-color: var(--accent-color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+ul li a:hover {
+  background-color: var(--text-color);
+  color: var(--nav-color);
+}
+
+.logo {
+  width: 25vw; 
+  max-width: 250px; 
+  height: auto; 
+  display: block; 
+  margin: 50px auto; 
+}
+
+table {
+  background-color: #ffffff; 
+  border-collapse: collapse;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  border-radius: 8px; 
+  overflow: hidden;
+}
+
+th {
+  background-color: var(--accent-color);
+  color: var(--nav-color);
+  padding: 12px;
+  font-size: 1.1rem;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  color: #333; 
+  font-weight: bold;
+}
+
+button {
+  background-color: var(--accent-color);
+  color: var(--nav-color);
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ffffff;
+  color: var(--nav-color);
+}

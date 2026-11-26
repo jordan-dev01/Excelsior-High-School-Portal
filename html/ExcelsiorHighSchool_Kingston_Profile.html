@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- Group Members:
+     Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+     Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+     Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+     Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Printable Student Profile</title>
+  <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
+  <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css">
+  <style>
+    main { padding: 1rem; }
+    .controls { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1rem; }
+    select, button { padding: 0.4rem; font-family: inherit; }
+    button { background: var(--accent-color); border: none; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+    th, td { border: 1px solid var(--accent-color); padding: 0.4rem; }
+    @media print {
+      .controls, nav { display: none; }
+      body { background: #fff; color: #000; }
+      th, td { border-color: #000; }
+      section { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Admins and teachers may view this page
+    const me = JSON.parse(localStorage.getItem('currentUser'));
+    if (!me) { alert('Access Denied. Please log in first.'); window.location.href = 'ExcelsiorHighSchool_Kingston_Login.html'; }
+  </script>
+  <header>
+    <h1>Excelsior High School</h1>
+    <h2>Student Profile Report</h2>
+    <nav class="navbar"><ul>
+      <li><a href="ExcelsiorHighSchool_Kingston_Admin.html">Student Registry</a></li>
+      <li><a href="ExcelsiorHighSchool_Kingston_Ledger.html">Financial Ledger</a></li>
+      <li><a href="ExcelsiorHighSchool_Kingston_Profile.html">Printable Profile</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul></nav>
+  </header>
+  <main>
+    <div class="controls">
+      <select id="studentSelect"></select>
+      <button id="printBtn" type="button">Print</button>
+    </div>
+
+    <section>
+      <h2>Personal Details</h2>
+      <table><tbody id="profileTable"></tbody></table>
+    </section>
+
+    <section>
+      <h2>Grades</h2>
+      <table>
+        <thead><tr><th>Subject</th><th>Score</th></tr></thead>
+        <tbody id="gradesTable"></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Financial Statement</h2>
+      <table><tbody id="financeTable"></tbody></table>
+    </section>
+    <p id="printDate"></p>
+  </main>
+  <script src="../js/ExcelsiorHighSchool_Kingston_Profile.js"></script>
+</body>
+</html>

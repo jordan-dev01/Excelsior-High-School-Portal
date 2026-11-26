@@ -1,0 +1,91 @@
+<!doctype html>
+<!-- Group Members:
+     Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+     Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+     Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+     Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Student Registry</title>
+    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
+    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+
+    <!-- Shared stylesheet -->
+  </head>
+  <body>
+    <script>
+      requireRole('admin');
+    </script>
+
+    <header>
+      <h1>Student Registry</h1>
+      <nav class="navbar"><ul>
+        <li><a href="ExcelsiorHighSchool_Kingston_Admin.html">Student Registry</a></li>
+        <li><a href="ExcelsiorHighSchool_Kingston_Ledger.html">Financial Ledger</a></li>
+        <li><a href="ExcelsiorHighSchool_Kingston_Profile.html">Printable Profile</a></li>
+        <li><a href="#" onclick="logout()">Logout</a></li>
+      </ul></nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Add / Update Student</h2>
+        <form id="studentForm">
+          <label for="id">Student ID</label>
+          <input type="text" id="id" placeholder="5 digits" />
+
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" />
+
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" />
+
+          <label for="email">Email</label>
+          <input type="text" id="email" />
+
+          <label for="gradeLevel">Grade Level</label>
+          <select id="gradeLevel">
+            <option value="">-- Select --</option>
+            <option>Grade 7</option>
+            <option>Grade 8</option>
+            <option>Grade 9</option>
+            <option>Grade 10</option>
+            <option>Grade 11</option>
+          </select>
+
+          <label for="semester">Active Semester</label>
+          <select id="semester">
+            <option value="">-- Select --</option>
+            <option>Semester 1</option>
+            <option>Semester 2</option>
+          </select>
+
+          <button type="submit" id="saveBtn">Add Student</button>
+          <button type="button" id="cancelBtn" hidden>Cancel</button>
+        </form>
+        <p id="message"></p>
+      </section>
+
+      <section>
+        <h2>Registered Students</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Grade</th>
+              <th>Semester</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="studentTable"></tbody>
+        </table>
+      </section>
+    </main>
+    <script src="../js/ExcelsiorHighSchool_Kingston_Admin.js"></script>
+  </body>
+</html>

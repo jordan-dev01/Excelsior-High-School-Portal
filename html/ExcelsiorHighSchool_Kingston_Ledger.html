@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- Group Members:
+     Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+     Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+     Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+     Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Financial Ledger</title>
+  <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
+  <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css">
+  <style>
+    main { padding: 1rem; }
+    form, .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1rem; }
+    input, select, button { padding: 0.4rem; font-family: inherit; }
+    button { background: var(--accent-color); border: none; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid var(--accent-color); padding: 0.4rem; }
+    .Paid { color: #4ade80; }
+    .Pending { color: #facc15; }
+    .Outstanding { color: #f87171; }
+    @media (max-width: 600px) { table { font-size: 0.8rem; } }
+    @media print {
+      form, .filters, button, nav { display: none; }
+      body { background: #fff; color: #000; }
+      .Paid, .Pending, .Outstanding { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <script>requireRole('admin');</script>
+  <header>
+    <h1>Financial Ledger</h1>
+    <nav class="navbar"><ul>
+      <li><a href="ExcelsiorHighSchool_Kingston_Admin.html">Student Registry</a></li>
+      <li><a href="ExcelsiorHighSchool_Kingston_Ledger.html">Financial Ledger</a></li>
+        <li><a href="ExcelsiorHighSchool_Kingston_Profile.html">Printable Profile</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul></nav>
+  </header>
+  <main>
+    <!-- Add tuition / record payment -->
+    <section>
+      <h2>Record Tuition / Payment</h2>
+      <form id="ledgerForm">
+        <select id="studentSelect" required></select>
+        <input type="number" id="tuition" min="0" placeholder="Total tuition ($)">
+        <input type="number" id="payment" min="0" placeholder="Payment ($)">
+        <button type="submit">Save</button>
+      </form>
+      <p id="message"></p>
+    </section>
+
+    <!-- Search and filters -->
+    <section>
+      <h2>Search Ledger</h2>
+      <div class="filters">
+        <input type="text" id="search" placeholder="Search name or ID">
+        <select id="statusFilter">
+          <option value="">All Statuses</option>
+          <option>Paid</option>
+          <option>Pending</option>
+          <option>Outstanding</option>
+        </select>
+        <select id="semesterFilter"><option value="">All Semesters</option></select>
+        <button id="printBtn" type="button">Print</button>
+      </div>
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Name</th><th>Semester</th><th>Tuition</th><th>Paid</th><th>Balance</th><th>Status</th></tr>
+        </thead>
+        <tbody id="ledgerTable"></tbody>
+      </table>
+    </section>
+  </main>
+  <script src="../js/ExcelsiorHighSchool_Kingston_Ledger.js"></script>
+</body>
+</html>

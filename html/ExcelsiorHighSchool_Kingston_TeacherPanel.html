@@ -1,0 +1,74 @@
+<!doctype html>
+<!-- Group Members:
+     Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+     Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+     Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+     Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructor Dashboard</title>
+    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
+  </head>
+  <body>
+    <script>
+      requireRole('teacher'); 
+    </script>
+
+    <header>
+      <!-- School logo -->
+      <img
+        src="../images/ExcelsiorHighSchool_Kingston_Logo.png"
+        alt="Excelsior High School Logo"
+        class="logo"
+      />
+      <h1>Instructor Dashboard</h1>
+      <p>Excelsior High School</p>
+      <nav class="navbar">
+        <ul>
+          <li><a href="ExcelsiorHighSchool_Kingston_Home.html">Home</a></li>
+          <!-- Logout link: ends the session -->
+          <li><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main style="padding: 20px;">
+      <h2>Student Directory</h2>
+      <p>Below is the list of students currently enrolled.</p>
+
+      <!-- Table to display students -->
+      <table border="1" style="margin: 0 auto; width: 80%; text-align: left;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Grade</th>
+            <th>Semester</th>
+          </tr>
+        </thead>
+        <tbody id="teacherStudentTable">
+          <!-- JavaScript will insert rows here -->
+        </tbody>
+      </table>
+
+      <br /><hr /><br />
+
+      <!-- Semantic Web / XML Section -->
+      <h2>Export Semantic Data (XML)</h2>
+      <p>Click the button below to generate a Semantic XML format of the students.</p>
+      <button id="generateXmlBtn" style="background-color: var(--accent-color); padding: 10px; cursor: pointer;">
+        Generate XML Report
+      </button>
+      
+      <!-- This box will show the XML code -->
+      <pre id="xmlOutput" style="text-align: left; background-color: #000; color: #0f0; padding: 10px; margin-top: 10px; overflow-x: auto; display: none;"></pre>
+    </main>
+
+    <script src="../js/ExcelsiorHighSchool_Kingston_Teacher.js"></script>
+  </body>
+</html>

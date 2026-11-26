@@ -1,0 +1,76 @@
+<!doctype html>
+<!-- Group Members:
+     Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+     Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+     Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+     Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
+    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
+  </head>
+  <body>
+    <img
+      src="../images/ExcelsiorHighSchool_Kingston_Logo.png"
+      alt="Excelsior High School Logo"
+      class="logo"
+    />
+    <form id="loginForm" class="Login">
+      <label for="usernameInput">Username:</label>
+      <input
+        type="text"
+        id="usernameInput"
+        name="username"
+        required
+      /><br /><br />
+
+      <label for="passwordInput">Password:</label>
+      <input
+        type="password"
+        id="passwordInput"
+        name="password"
+        required
+      /><br /><br />
+
+      <input class="login_button" type="submit" value="Login" />
+
+      <p id="loginError" style="color: red; display: none"></p>
+    </form>
+    <script>
+      seedDatabase();
+
+      document
+        .getElementById('loginForm')
+        .addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          const username = document
+            .getElementById('usernameInput')
+            .value.trim();
+          const password = document.getElementById('passwordInput').value;
+
+          const result = login(username, password);
+
+          if (!result.success) {
+            document.getElementById('loginError').textContent = result.message;
+            document.getElementById('loginError').style.display = 'block';
+            return;
+          }
+
+          if (result.user.role === 'admin') {
+            window.location.href = 'ExcelsiorHighSchool_Kingston_Admin.html';
+          } else if (result.user.role === 'teacher') {
+            window.location.href = 'ExcelsiorHighSchool_Kingston_TeacherPanel.html';
+          } else {
+            document.getElementById('loginError').textContent =
+              'No page has been set up for this role yet.';
+            document.getElementById('loginError').style.display = 'block';
+          }
+        });
+    </script>
+  </body>
+</html>
