@@ -19,6 +19,9 @@
     button { background: var(--accent-color); border: none; cursor: pointer; }
     table { width: 100%; border-collapse: collapse; }
     th, td { border: 1px solid var(--accent-color); padding: 0.4rem; }
+    #ledgerTable tr { cursor: pointer; }
+    .flash { animation: flash 1.5s; }
+    @keyframes flash { from { background: var(--accent-color); color: #000; } to { background: transparent; } }
     .Paid { color: #4ade80; }
     .Pending { color: #facc15; }
     .Outstanding { color: #f87171; }
@@ -42,26 +45,27 @@
     </ul></nav>
   </header>
   <main>
-    <!-- Add tuition / record payment -->
+    <!-- add tuition / record payment -->
     <section>
       <h2>Record Tuition / Payment</h2>
       <form id="ledgerForm">
         <select id="studentSelect" required></select>
         <input type="number" id="tuition" min="0" placeholder="Total tuition ($)">
-        <input type="number" id="payment" min="0" placeholder="Payment ($)">
+      <input type="number" id="payment" min="0" placeholder="Payment ($)">
         <button type="submit">Save</button>
       </form>
       <p id="message"></p>
     </section>
 
-    <!-- Search and filters -->
+    <!-- search and filters -->
     <section>
       <h2>Search Ledger</h2>
+      <p id="summary"></p>
       <div class="filters">
         <input type="text" id="search" placeholder="Search name or ID">
         <select id="statusFilter">
           <option value="">All Statuses</option>
-          <option>Paid</option>
+       <option>Paid</option>
           <option>Pending</option>
           <option>Outstanding</option>
         </select>
@@ -73,6 +77,16 @@
           <tr><th>ID</th><th>Name</th><th>Semester</th><th>Tuition</th><th>Paid</th><th>Balance</th><th>Status</th></tr>
         </thead>
         <tbody id="ledgerTable"></tbody>
+      </table>
+    </section>
+
+    <!-- payment history for the student row that was clicked -->
+    <section>
+      <h2 id="historyTitle">Payment History</h2>
+      <p>Click a student row above to see their payments.</p>
+      <table>
+        <thead><tr><th>Date</th><th>Amount</th><th>Action</th></tr></thead>
+        <tbody id="historyTable"></tbody>
       </table>
     </section>
   </main>
