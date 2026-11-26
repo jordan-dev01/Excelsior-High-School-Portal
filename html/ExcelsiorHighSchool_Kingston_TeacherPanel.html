@@ -9,66 +9,71 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instructor Dashboard</title>
-    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
-    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
+    <title>Teacher Panel — Excelsior High School</title>
+    <link rel="stylesheet" href="Stylesheet.css" />
+    <script src="storage.js" defer></script>
   </head>
   <body>
     <script>
-      requireRole('teacher'); 
+      requireRole('teacher');
     </script>
 
-    <header>
-      <!-- School logo -->
+    <header class="site-header">
       <img
-        src="../images/ExcelsiorHighSchool_Kingston_Logo.png"
+        src="images/Excelsior Logo.png"
         alt="Excelsior High School Logo"
         class="logo"
       />
-      <h1>Instructor Dashboard</h1>
-      <p>Excelsior High School</p>
-      <nav class="navbar">
-        <ul>
-          <li><a href="ExcelsiorHighSchool_Kingston_Home.html">Home</a></li>
-          <!-- Logout link: ends the session -->
-          <li><a href="#" onclick="logout()">Logout</a></li>
-        </ul>
-      </nav>
+      <h1>Teacher Panel</h1>
+      <button id="logoutBtn" class="login_button">Logout</button>
     </header>
 
-    <main style="padding: 20px;">
-      <h2>Student Directory</h2>
-      <p>Below is the list of students currently enrolled.</p>
+    <main>
+      <section>
+        <h2>Curriculum Filter</h2>
+        <label for="subjectSelect">Select a Subject</label>
+        <select id="subjectSelect">
+          <option value="">-- Select Subject --</option>
+        </select>
+      </section>
 
-      <!-- Table to display students -->
-      <table border="1" style="margin: 0 auto; width: 80%; text-align: left;">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Grade</th>
-            <th>Semester</th>
-          </tr>
-        </thead>
-        <tbody id="teacherStudentTable">
-          <!-- JavaScript will insert rows here -->
-        </tbody>
-      </table>
+      <section>
+        <h2>Grade Entry</h2>
+        <p id="gradePlaceholder">Choose a subject to load the student list.</p>
+        <table class="directory-table">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Student Name</th>
+              <th>Grade</th>
+              <th>Save</th>
+            </tr>
+          </thead>
+          <tbody id="gradeTable"></tbody>
+        </table>
+      </section>
 
-      <br /><hr /><br />
-
-      <!-- Semantic Web / XML Section -->
-      <h2>Export Semantic Data (XML)</h2>
-      <p>Click the button below to generate a Semantic XML format of the students.</p>
-      <button id="generateXmlBtn" style="background-color: var(--accent-color); padding: 10px; cursor: pointer;">
-        Generate XML Report
-      </button>
-      
-      <!-- This box will show the XML code -->
-      <pre id="xmlOutput" style="text-align: left; background-color: #000; color: #0f0; padding: 10px; margin-top: 10px; overflow-x: auto; display: none;"></pre>
+      <section>
+        <h2>Report Card Generator</h2>
+        <label for="reportStudent">Select Student</label>
+        <select id="reportStudent">
+          <option value="">-- Select Student --</option>
+        </select>
+        <div id="reportCard"></div>
+      </section>
     </main>
 
-    <script src="../js/ExcelsiorHighSchool_Kingston_Teacher.js"></script>
+    <script>
+      document.getElementById('logoutBtn').addEventListener('click', logout);
+
+      // Populate subject dropdown from storage
+      const subjectSelect = document.getElementById('subjectSelect');
+      getData('subjects').forEach(function (s) {
+        const opt = document.createElement('option');
+        opt.value = s.code || s.name;
+        opt.textContent = s.name;
+        subjectSelect.appendChild(opt);
+      });
+    </script>
   </body>
 </html>
