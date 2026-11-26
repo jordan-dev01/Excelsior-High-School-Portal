@@ -10,16 +10,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
-    <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css" />
-    <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
+    <link rel="stylesheet" href="Stylesheet.css" />
+    <script src="storage.js"></script>
   </head>
   <body>
-       <nav class="navbar">
-        <ul>
-          <li><a href="ExcelsiorHighSchool_Kingston_Home.html">Home</a></li>
-        </ul>
     <img
-      src="../images/ExcelsiorHighSchool_Kingston_Logo.png"
+      src="images/Excelsior Logo.png"
       alt="Excelsior High School Logo"
       class="logo"
     />
@@ -66,9 +62,11 @@
           }
 
           if (result.user.role === 'admin') {
-            window.location.href = 'ExcelsiorHighSchool_Kingston_Admin.html';
+            window.location.href = 'admin.html';
           } else if (result.user.role === 'teacher') {
-            window.location.href = 'ExcelsiorHighSchool_Kingston_TeacherPanel.html';
+            window.location.href = 'teacher-panel.html';
+          } else if (result.user.role === 'student') {
+            window.location.href = 'student-panel.html';
           } else {
             document.getElementById('loginError').textContent =
               'No page has been set up for this role yet.';
@@ -78,3 +76,4 @@
     </script>
   </body>
 </html>
+
