@@ -6,101 +6,342 @@
 */
 
 :root {
-  --background-color: #34495e; 
-  --nav-color: #2c3e50;
-  --accent-color: #f1c40f; 
-  --text-color: #ecf0f1; 
+  /* Dark Charcoal (background color) */
+  --background-color: #181c1a;
+
+  /* Dark Green (primary brand color, navigation accents, feature banners) */
+  --primary-color: #0f4c2c;
+
+  /* Yellow / Gold for any interactive elements buttons and so on */
+  --secondary-color: #facc15;
+
   --font-display: 'Palatino Linotype', serif;
   --font-size: 1rem;
 }
-
-h1, h2 {
+/* Alings the text to the center of the page. */
+h1 {
   text-align: center;
-  color: var(--accent-color);
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
-
+h2 {
+  text-align: center;
+  font-size: 1rem;
+}
+/* Styles the body of the page. It sets the background color to dark charcoal, the text color to yellow, and the font to Palatino Linotype. It also removes any default margin and padding from the body and centers the text. */
 body {
   background-color: var(--background-color);
-  color: var(--text-color);
+  color: var(--secondary-color);
   font-family: var(--font-display);
   font-size: var(--font-size);
   margin: 0;
   padding: 0;
   text-align: center;
 }
-
+/* Styles the navigation bar. It sets the display to flex, the flex direction to row, and justifies the content to space evenly. It also sets the background color to dark charcoal, the text color to dark green, and adds a border and padding. */
 ul {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  gap: 15px;
-  list-style-type: none;
-  padding: 15px;
-  margin: 0;
-  background-color: var(--nav-color);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  justify-content: space-evenly;
+  align-items: center;
+  border: 2px solid var(--secondary-color);
+  padding: 0.5rem;
+  color: var(--primary-color);
+  background-color: var(--background-color);
 }
+/* Styles the navigation links. It removes the default text decoration and sets the text color to dark green. It also adds padding and a border radius to the links. */
 
-ul li a {
+ul a {
+  color: var(--secondary-color);
   text-decoration: none;
-  color: var(--nav-color);
-  background-color: var(--accent-color);
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+ul a:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
-ul li a:hover {
-  background-color: var(--text-color);
-  color: var(--nav-color);
+/* Styles the navigation links when they are focused. It sets the background color to dark green and the text color to yellow. */
+ul a:focus-visible {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  outline: 2px solid var(--secondary-color);
+}
+
+/*This is the style for the Login form. It is a flex container that is centered on the page. It has a dark charcoal background color and a yellow border. The text is yellow and the font is Palatino Linotype. The form has a max width of 450px and a padding of 20rem. */
+.Login {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background-color: var(--background-color);
+  color: var(--secondary-color);
+  font-family: var(--font-display);
+  font-size: var(--font-size);
+  border: 2px solid var(--secondary-color);
+  padding: 2rem 3rem;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 400px;
 }
 
 .logo {
-  width: 25vw; 
-  max-width: 250px; 
-  height: auto; 
-  display: block; 
-  margin: 50px auto; 
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 1.5rem auto;
+  display: block;
+  border: 3px solid var(--secondary-color);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-table {
-  background-color: #ffffff; 
-  border-collapse: collapse;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-  margin-bottom: 20px;
-  border-radius: 8px; 
-  overflow: hidden;
+.logo:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.6);
 }
 
-th {
-  background-color: var(--accent-color);
-  color: var(--nav-color);
-  padding: 12px;
-  font-size: 1.1rem;
-}
-
-td {
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-  color: #333; 
-  font-weight: bold;
-}
-
-button {
-  background-color: var(--accent-color);
-  color: var(--nav-color);
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
+.login_button {
+  padding: 0.5rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: 2px solid var(--secondary-color);
   cursor: pointer;
-  transition: 0.3s;
+  font-family: var(--font-display);
+  font-size: var(--font-size);
 }
 
-button:hover {
-  background-color: #ffffff;
-  color: var(--nav-color);
+/* ===== Header / Brand ===== */
+.site-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid var(--secondary-color);
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.site-header .logo {
+  margin: 0;
+}
+
+.brand {
+  flex: 1;
+  text-align: left;
+}
+
+.brand h1 {
+  margin: 0;
+  text-align: left;
+  font-size: 1.4rem;
+}
+
+.brand p {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.site-header .navbar {
+  width: 100%;
+}
+
+/* ===== Hero ===== */
+.hero {
+  padding: 4rem 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--background-color)
+  );
+  border-bottom: 3px solid var(--secondary-color);
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  max-width: 640px;
+  margin: 0 auto 1.5rem;
+  font-size: 1rem;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+  font-weight: bold;
+  text-decoration: none;
+  border: 2px solid var(--secondary-color);
+  border-radius: 4px;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+/* ===== Stats ===== */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 1rem;
+}
+
+.stat-card {
+  flex: 1 1 200px;
+  max-width: 220px;
+  padding: 1.25rem;
+  border: 2px solid var(--secondary-color);
+  border-radius: 6px;
+  background-color: rgba(15, 76, 44, 0.25);
+}
+
+.stat-card h3 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.stat-card p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+}
+
+/* ===== Features ===== */
+.features {
+  padding: 3rem 1rem;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  padding: 0 1rem;
+}
+
+.feature-card {
+  padding: 1.5rem;
+  border: 2px solid var(--secondary-color);
+  border-radius: 6px;
+  background-color: rgba(15, 76, 44, 0.15);
+  text-align: left;
+}
+
+.feature-card h3 {
+  margin-top: 0;
+  color: var(--secondary-color);
+}
+
+/* ===== Tables ===== */
+.directory-table {
+  width: 90%;
+  max-width: 800px;
+  margin: 1.5rem auto;
+  border-collapse: collapse;
+}
+
+.directory-table th,
+.directory-table td {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--secondary-color);
+  text-align: left;
+}
+
+.directory-table thead th {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.directory-table tbody tr:nth-child(even) {
+  background-color: rgba(15, 76, 44, 0.15);
+}
+
+/* ===== Forms (contact + admin) ===== */
+.contact-form,
+main form {
+  max-width: 550px;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+  padding: 1.5rem;
+  border: 2px solid var(--secondary-color);
+  border-radius: 6px;
+}
+
+.contact-form label,
+main form label {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea,
+main form input,
+main form select {
+  padding: 0.5rem;
+  background-color: var(--background-color);
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.form-status {
+  min-height: 1.25rem;
+  font-weight: bold;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  margin-top: 3rem;
+  padding: 1.5rem 1rem;
+  border-top: 2px solid var(--secondary-color);
+  font-size: 0.85rem;
+}
+
+.site-footer p {
+  margin: 0.25rem 0;
+}
+
+/* ===== Section spacing ===== */
+main section {
+  padding: 1.5rem 1rem;
+}
+
+/* ===== Mobile Adjustment===== */
+@media (max-width: 640px) {
+  .site-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  .brand {
+    text-align: center;
+  }
+  .brand h1 {
+    text-align: center;
+  }
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+  .directory-table {
+    font-size: 0.85rem;
+  }
 }
