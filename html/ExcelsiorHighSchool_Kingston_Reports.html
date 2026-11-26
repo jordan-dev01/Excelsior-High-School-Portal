@@ -1,0 +1,97 @@
+<!doctype html>
+<!-- Group Members:
+     Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+     Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+     Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+     Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search &amp; Reports - Excelsior High School</title>
+  <script src="../js/ExcelsiorHighSchool_Kingston_Storage.js"></script>
+  <link rel="stylesheet" href="../css/ExcelsiorHighSchool_Kingston_Stylesheet.css">
+  <style>
+    main { padding: 1rem; }
+    .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1rem; }
+    input, select, button { padding: 0.4rem; font-family: inherit; }
+    button { background: var(--secondary-color); border: none; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+    th, td { border: 1px solid var(--secondary-color); padding: 0.4rem; }
+    .Paid { color: #4ade80; }
+    .Pending { color: #facc15; }
+    .Outstanding { color: #f87171; }
+    @media (max-width: 600px) { table { font-size: 0.8rem; } }
+    @media print {
+      .filters, button, nav { display: none; }
+      body { background: #fff; color: #000; }
+      th, td { border-color: #000; }
+      .Paid, .Pending, .Outstanding { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // Read-only viewer: admins and teachers may open this page
+    requireRole(['admin', 'teacher']);
+  </script>
+  <header>
+    <h1>Search &amp; Reports</h1>
+    <nav class="navbar"><ul>
+      <li class="admin-only"><a href="ExcelsiorHighSchool_Kingston_Admin.html">Student Registry</a></li>
+      <li class="admin-only"><a href="ExcelsiorHighSchool_Kingston_Ledger.html">Financial Ledger</a></li>
+      <li class="teacher-only" hidden><a href="ExcelsiorHighSchool_Kingston_TeacherPanel.html">Teacher Panel</a></li>
+      <li><a href="ExcelsiorHighSchool_Kingston_Profile.html">Printable Profile</a></li>
+      <li><a href="ExcelsiorHighSchool_Kingston_Reports.html">Reports</a></li>
+      <li><a href="#" id="logoutLink">Logout</a></li>
+    </ul></nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Universal Search</h2>
+      <p>Search by name, ID or email, then narrow the results with the filters. This page is view-only.</p>
+      <div class="filters">
+        <input type="search" id="searchInput" placeholder="Search name, ID or email" aria-label="Search students">
+        <select id="gradeFilter" aria-label="Filter by grade level"><option value="">All Grades</option></select>
+        <select id="semesterFilter" aria-label="Filter by semester"><option value="">All Semesters</option></select>
+        <select id="statusFilter" aria-label="Filter by payment status">
+          <option value="">All Statuses</option>
+          <option>Paid</option>
+          <option>Pending</option>
+          <option>Outstanding</option>
+        </select>
+        <button id="resetBtn" type="button">Reset</button>
+        <button id="printBtn" type="button">Print Report</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Report Summary</h2>
+      <p id="summary"></p>
+      <table>
+        <thead>
+          <tr><th>ID</th><th>Name</th><th>Grade</th><th>Semester</th><th>Average Score</th><th>Balance</th><th>Status</th><th>Details</th></tr>
+        </thead>
+        <tbody id="resultsTable"></tbody>
+      </table>
+    </section>
+
+    <section id="detailSection" hidden>
+      <h2 id="detailTitle">Student Details</h2>
+      <h3>Personal Details</h3>
+      <table><tbody id="detailProfile"></tbody></table>
+      <h3>Grades</h3>
+      <table>
+        <thead><tr><th>Subject</th><th>Score</th></tr></thead>
+        <tbody id="detailGrades"></tbody>
+      </table>
+      <h3>Financial Statement</h3>
+      <table><tbody id="detailFinance"></tbody></table>
+    </section>
+    <p id="printDate"></p>
+  </main>
+  <script src="../js/ExcelsiorHighSchool_Kingston_Reports.js"></script>
+</body>
+</html>

@@ -1,3 +1,9 @@
+/* Group Members:
+   Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+   Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+   Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+   Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+*/
 // Login page logic (needs Storage.js loaded first).
 document.getElementById('loginForm').addEventListener('submit', function (event) {
   // Stop the form from refreshing the page

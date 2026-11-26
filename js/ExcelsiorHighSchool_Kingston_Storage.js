@@ -1,3 +1,9 @@
+/* Group Members:
+   Khaleed Bryan | 2408864 | Lab Thursday 6-8PM
+   Yashen Barracks | 2304973 | Lab Thursday 6-8PM
+   Jordan Zhang | 2510220 | Lab Thursday 6-8PM
+   Joel Nicholson | 2405543 | Lab Thursday 6-8PM
+*/
 // Shared storage + authentication helpers (loaded by every page that needs data or a login check).
 // Only function declarations live here so page scripts can use their own const names freely.
 
